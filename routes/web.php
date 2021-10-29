@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -9,14 +10,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::prefix('calendar')->group(function () {
-    Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [CalendarController::class, 'index' ]);
 
     // Route::get('/', [CalendarController::class, 'index' ]);
-});
-
-Route::get('/', function () {
-    return view('welcome');
-});
