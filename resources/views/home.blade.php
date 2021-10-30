@@ -55,7 +55,7 @@
                     <p>Breakfast <span>&nbsp;(21, 8, 32)</span></p>
                 </a>
 
-                <a href="{{ URL::route('meal', ['meal' => '1', 'calendarDate' => $calendarDate->toDateString() ]) }}">
+                <a href="{{ URL::route('meal', ['mealid' => '1', 'date' => $calendarDate->toDateString() ]) }}">
                     <i class="fa fa-plus text-white"></i>
                 </a>
             </div>
@@ -67,14 +67,14 @@
 
             <div class="justify-content-between row">
                 <p>Launch</p>
-                <a href="{{ URL::route('meal', ['meal' => '2', 'calendarDate' => $calendarDate->toDateString() ]) }}">
+                <a href="{{ URL::route('meal', ['mealid' => '2', 'date' => $calendarDate->toDateString() ]) }}">
                     <i class="fa fa-plus text-white"></i>
                 </a>
             </div>
 
             <div class="justify-content-between row">
                 <p>Dinner</p>
-                <a href="{{ URL::route('meal', ['meal' => '3', 'calendarDate' => $calendarDate->toDateString() ]) }}">
+                <a href="{{ URL::route('meal', ['mealid' => '3', 'date' => $calendarDate->toDateString() ]) }}">
                     <i class="fa fa-plus text-white"></i>
                 </a>
             </div>
