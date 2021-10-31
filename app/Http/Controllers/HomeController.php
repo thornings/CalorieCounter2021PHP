@@ -2,25 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CalendarItem;
+use App\Services\Interfaces\CalendarServiceInterface;
 use Carbon\Carbon;
-use DateTime;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+     private $calendarService;
+
     /**
      * Create a new controller instance.
-     *
+     * Adding Authentication
+     * @param CalendarService $calendarService
      * @return void
      */
-    public function __construct()
+    public function __construct(CalendarServiceInterface $calendarService)
     {
         $this->middleware('auth');
+        $this->calendarService = $calendarService;
     }
 
     /**
-     * Show the application dashboard.
+     * Show the calendar index page.
+     *
+     * If a date throws a error, use Carbon today
+     *
+     * @param Carbon $calendarDate
+     * @example /calendar/2021-11-22
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -28,14 +38,23 @@ class HomeController extends Controller
     {
         $date = Carbon::Today();
 
-        //if ($date!="" && Carbon::createFromFormat('Y-m-d', $date) !== false) {
-        if ($calendardate!="-" &&  Carbon::createFromFormat('Y-m-d', $calendardate) !== false) {
-            dd("stop her");
-            $date = Carbon::parse($calendardate);
+        try {
+            if ($calendardate!="-" &&  Carbon::createFromFormat('Y-m-d', $calendardate) !== false) {
+                $date = Carbon::parse($calendardate);
+            }
+        } catch (\Carbon\Exceptions\InvalidDateException | \Carbon\Exceptions\InvalidFormatException | Exception $exp) {
+            // $date = Carbon::Today();
         }
-        // dump($date);
-        // dd("efter");
 
-        return view('home', ['calendarDate' => $date]);
+        $mealsInformations = $this->calendarService->getAllMealsInformations($date);
+
+        $calendarDayInformations = $this->calendarService->getCalendarDayInformations($mealsInformations);
+
+        // create view with params
+        return view('home', [
+            'calendarDate' => $date,
+            'mealInformations' => $mealsInformations,
+            'dayInformation' => $calendarDayInformations]
+        );
     }
 }

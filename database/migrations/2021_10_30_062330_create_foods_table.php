@@ -22,7 +22,7 @@ class CreateFoodsTable extends Migration
             $table->decimal('fats');
             $table->decimal('energy');
 
-            // $table->bigInteger('selected_food_weight_type_id');
+          //  $table->bigInteger('selected_food_weight_type_id');
             // $table->foreign('selected_food_weight_type_id')->references('id')->on('food_weight_type');
         });
     }

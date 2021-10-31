@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\WeightType;
 use Illuminate\Database\Seeder;
 
 class WeightTypeSeeder extends Seeder
@@ -13,6 +14,21 @@ class WeightTypeSeeder extends Seeder
      */
     public function run()
     {
-        //
+        WeightType::Create([
+            'name' => 'Gram',
+        ]);
+
+        WeightType::Create([
+            'name' => 'Piece',
+        ]);
+
+        WeightType::Create([
+            'name' => 'Small',
+        ]);
+
+        WeightType::Create([
+            'name' => 'Big',
+        ]);
+
     }
 }

@@ -13,34 +13,34 @@ class FoodWeightType extends Model
     /**
      * Changeable fields
      */
-    // protected $fillable = [
-    //     'weight', 'weight_type_id', 'food_id'
-    // ];
+    protected $fillable = [
+        'weight', 'weight_type_id', 'food_id'
+    ];
+
+    protected $table =  'food_weight_type';
 
     //  /**
     //  * Get the WeightType
     //  */
-    // public function WeightType()
-    // {
-    //     return $this->belongsTo(WeightType::class);
-    // }
+    public function WeightType()
+    {
+        return $this->belongsTo(WeightType::class);
+    }
 
     // /**
     //  * Get the Food
     //  */
-    // public function Food()
-    // {
-    //     return $this->belongsTo(Food::class);
-    // }
+    public function Food()
+    {
+        return $this->belongsTo(Food::class);
+    }
 
     // /**
     //  * Get the CalendarItems for this FoodWeightType.
     //  */
-    // public function CalendarItems()
-    // {
-    //     return $this->hasMany(CalendarItem::class);
-    // }
-
-
+    public function CalendarItems()
+    {
+        return $this->hasMany(CalendarItem::class);
+    }
 
 }

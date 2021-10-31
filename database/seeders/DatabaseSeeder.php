@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Meal;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+         $this->call(MealSeeder::class);
+         $this->call(WeightTypeSeeder::class);
+         $this->call(FoodsSeeder::class);
+         $this->call(FoodWeightTypeSeeder::class);
     }
 }

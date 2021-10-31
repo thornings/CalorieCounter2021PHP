@@ -13,8 +13,11 @@ class Food extends Model
      * Changeable fields
      */
     protected $fillable = [
-        'name', 'weight', 'energy', 'carbs', 'proteins', 'fats', 'selectedFoodWeightType'
+        'name', 'weight', 'energy', 'carbs', 'proteins', 'fats', 'food-weight-type-id'
     ];
+
+    protected $table = 'foods';
+    public $timestamps = false;
 
     /**
      * Get the selected FoodWeightType
@@ -35,10 +38,10 @@ class Food extends Model
             'App\Models\FoodWeightType',
 
             // optional
-            'weight_type_id', // the current model id in the pivot
-            'id', // the id of related model
-            'id', // the id of current model
-            'food_id' // the related model id in the pivot
+            'weight_type_id',
+            'id',
+            'id',
+            'food_id'
         );
 
         return $this->belongsToMany(FoodWeightType::class)->withPivot('weight');
