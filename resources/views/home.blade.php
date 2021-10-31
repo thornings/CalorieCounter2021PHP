@@ -23,9 +23,9 @@
                 </div>
 
                 <div class=" justify-content-between row" >
-                    <div class="col-4">0</div>
-                    <div class="col-4">1992</div>
-                    <div class="col-4">2550</div>
+                    <div class="col-4">{{$dayInfo->getEatenThisDay()}}</div>
+                    <div class="col-4">{{$dayInfo->getLeftThisDay()}}</div>
+                    <div class="col-4">{{$dayInfo->getTotalEnergySuggestion()}}</div>
                 </div>
             </div>
 
@@ -36,9 +36,9 @@
             </div>
 
             <div class=" justify-content-between row" >
-                <div class="col-4">122</div>
-                <div class="col-4">52</div>
-                <div class="col-4">35</div>
+                <div class="col-4">{{$dayInfo->getTotalDayCarbs()}}</div>
+                <div class="col-4">{{$dayInfo->getTotalDayProteins()}}</div>
+                <div class="col-4">{{$dayInfo->getTotalDayFats()}}</div>
             </div>
 
         </div>
@@ -49,35 +49,25 @@
 
         <div class="col-md-8 justify-content-center text-center bg-dark text-white-50 rounded p-5 mb-5 mt-0">
 
-            <div class="justify-content-between row">
+            @foreach ($mealsInfo as $mealInfo )
+                <div class="justify-content-between row">
 
-                <a data-toggle="collapse" href="#mealone" role="button" aria-controls="mealone">
-                    <p>Breakfast <span>&nbsp;(21, 8, 32)</span></p>
-                </a>
+                    <a data-toggle="collapse" href="#mealInfo-{{$mealInfo->getMeal()->id}}" role="button" aria-controls="mealInfo-{{$mealInfo->getMeal()->id}}">
+                        <p>{{$mealInfo->getMeal()->name}} <span>&nbsp;({{$mealInfo->getMealTotals()->getMealCarbsTotal()}}, {{$mealInfo->getMealTotals()->getMealProteinsTotal()}}, {{$mealInfo->getMealTotals()->getMealFatsTotal()}})</span></p>
+                    </a>
 
-                <a href="{{ URL::route('meal', ['mealid' => '1', 'date' => $calendarDate->toDateString() ]) }}">
-                    <i class="fa fa-plus text-white"></i>
-                </a>
-            </div>
+                    <a href="{{ URL::route('meal', ['mealid' => $mealInfo->getMeal()->id, 'date' => $calendarDate->toDateString() ]) }}">
+                        <i class="fa fa-plus text-white"></i>
+                    </a>
+                </div>
 
-            <div class="collapse text-info pl-0 mb-3 text-left" id="mealone">
-                <p>Banana and Apples&nbsp;(125 kcal 2 pieces)</p>
-                <p>Fish&nbsp;(325 kcal 2 pieces)</p>
-            </div>
+                <div class="collapse text-info pl-0 mb-3 text-left" id="mealInfo-{{$mealInfo->getMeal()->id}}">
+                    @foreach ($mealInfo->getMealCalendarItems() as $calendarItem )
+                        <p>{{$calendarItem->selectedFoodWeightType->Food->name}}&nbsp;({{$calendarItem->selectedFoodWeightType->Food->energy}} kcal)</p>
+                    @endforeach
+                </div>
+            @endforeach
 
-            <div class="justify-content-between row">
-                <p>Launch</p>
-                <a href="{{ URL::route('meal', ['mealid' => '2', 'date' => $calendarDate->toDateString() ]) }}">
-                    <i class="fa fa-plus text-white"></i>
-                </a>
-            </div>
-
-            <div class="justify-content-between row">
-                <p>Dinner</p>
-                <a href="{{ URL::route('meal', ['mealid' => '3', 'date' => $calendarDate->toDateString() ]) }}">
-                    <i class="fa fa-plus text-white"></i>
-                </a>
-            </div>
         </div>
 
     </div>

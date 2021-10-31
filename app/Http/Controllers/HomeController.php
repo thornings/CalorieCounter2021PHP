@@ -49,12 +49,14 @@ class HomeController extends Controller
         $mealsInformations = $this->calendarService->getAllMealsInformations($date);
 
         $calendarDayInformations = $this->calendarService->getCalendarDayInformations($mealsInformations);
+        // dump($mealsInformations);
+        // dd();
 
         // create view with params
         return view('home', [
             'calendarDate' => $date,
-            'mealInformations' => $mealsInformations,
-            'dayInformation' => $calendarDayInformations]
+            'mealsInfo' => $mealsInformations,
+            'dayInfo' => $calendarDayInformations]
         );
     }
 }

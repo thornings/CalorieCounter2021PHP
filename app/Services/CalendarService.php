@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Dtos\CalendarDayInformationDTO;
+use App\Dtos\MealInformationDTO;
 use App\Dtos\MealTotalsDTO;
 use App\Models\CalendarItem;
 use App\Models\Meal;
@@ -25,12 +26,12 @@ class CalendarService implements CalendarServiceInterface
      *
      * @param  Carbon date $date
      * @example getAllMealsInformation(new Carbon::Today)
-     * @return array of MealTotalsDTO
+     * @return array of MealInformationsDTO
      */
     public function getAllMealsInformations(Carbon $date) : array {
         $meals = $this->getMeals();
         $userId = Auth::Id();
-        $mealsInformation = [];
+        $mealsInformations = [];
 
         foreach ($meals as $meal) {
             $calendarItems = $this->getCalendarItemsFromMeal($meal->id, $date, $userId);
@@ -39,9 +40,9 @@ class CalendarService implements CalendarServiceInterface
             $mealProteinsTotal = $this->calculateMealProteinsTotal($calendarItems);
             $mealFatsTotal = $this->calculateMealFatsTotal($calendarItems);
             $mealTotalsDTO = new MealTotalsDTO($mealCarbsTotal, $mealProteinsTotal, $mealFatsTotal);
-            $mealsInformation[] = $mealTotalsDTO;
+            $mealsInformations[] = new MealInformationDTO($calendarItems, $meal, $mealTotalsDTO);
         }
-        return $mealsInformation;
+        return $mealsInformations;
     }
 
     /**
